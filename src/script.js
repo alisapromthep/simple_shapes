@@ -1,6 +1,16 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import GUI from 'lil-gui';
+import { Material } from 'three';
+
+const gui = new GUI();
+
+const parameters = {
+	cssColor: '#ff00ff',
+	rgbColor: { r: 0, g: 0.2, b: 0.4 },
+	customRange: [ 0, 127, 255 ],
+};
 
 /**
  * Base
@@ -18,7 +28,7 @@ const ball = new THREE.SphereGeometry(0.9,10,10)
 
 //each set is a vertex 
 
-const redMaterial = new THREE.MeshBasicMaterial({ color: 0xd90429 });
+const redMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 const blueMaterial = new THREE.MeshBasicMaterial({color: 0x3f37c9});
 const greenMaterial = new THREE.MeshBasicMaterial({color: 0x0a9396});
 const cubeMesh = new THREE.Mesh(cube, redMaterial);
@@ -26,6 +36,14 @@ cubeMesh.position.x = -2;
 const coneMesh = new THREE.Mesh(cone, blueMaterial);
 const ballMesh = new THREE.Mesh(ball, greenMaterial);
 ballMesh.position.x = 2;
+
+//gui.addColor(cubeMesh, parameters, 'cssColor');
+
+gui.add(cubeMesh.position, 'y');
+gui.add(coneMesh.position, 'y');
+
+gui.addColor(redMaterial, 'color').name('cube color')
+
 
 
 const group = new THREE.Group();
